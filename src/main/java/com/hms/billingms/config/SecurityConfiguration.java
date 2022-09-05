@@ -15,8 +15,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.hms.billingms.filter.JwtFilter;
 import com.hms.billingms.service.UserService;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @Configuration
 @EnableWebSecurity
+
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -46,11 +49,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers(HttpMethod.POST,"/issuebill").hasAnyAuthority("receptionist")
-               // .permitAll()
+                .antMatchers("/authenticate")		//.permitAll()
+                //.antMatchers(HttpMethod.POST,"/issuebill").hasAnyAuthority("receptionist")
+                .permitAll()
                 .anyRequest()
-                .authenticated()
+               // .authenticated()
+                .permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
